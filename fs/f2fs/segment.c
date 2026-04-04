@@ -1822,6 +1822,9 @@ static int issue_discard_thread(void *data)
 			continue;
 		}
 
+		if (sbi->gc_mode == GC_URGENT)
+			__init_discard_policy(sbi, &dpolicy, DPOLICY_FORCE, 1);
+
 		sb_start_intwrite(sbi->sb);
 
 		issued = __issue_discard_cmd(sbi, &dpolicy);
